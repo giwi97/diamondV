@@ -3,3 +3,12 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.example-icon {
+    padding: 0 5px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  

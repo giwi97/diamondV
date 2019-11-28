@@ -8,19 +8,23 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AboutComponent } from './shared/about/about.component';
 import { CustomMaterialRoutingModule } from './custom-material-routing.module';
+import { SettingsComponent } from './settings/settings.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    AboutComponent
+    AboutComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CustomMaterialRoutingModule
+    CustomMaterialRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,35 @@
-<p>header works!</p>
+<mat-toolbar>
+    <button mat-mini-fab color="accent" [matMenuTriggerFor] = "navMenu">
+        <mat-icon>dashboard</mat-icon>
+    </button>
+    <span class="example-icon"></span>
+    <mat-icon>{{iconTitle}}</mat-icon>
+    <span class="example-icon"></span>
+    {{pageTitle}}
+    <span class="example-spacer"></span>
+    <mat-icon [color] = "userStatusColor">account_circle</mat-icon>
+    <span class="example-icon"></span>
+    <mat-icon matBadge="{{counter}}" matBadgePosition="before" matBadgeColor="accent">shopping_cart</mat-icon>
+    <span class="example-icon"></span>
+    <mat-icon [matMenuTriggerFor]="helpMenu">help</mat-icon>
+    <span class="example-icon"></span>
+    <mat-icon>settings</mat-icon>
+
+    <mat-menu #helpMenu="matMenu">
+        <div *ngIf="helpTitle == 'SettingsHelp'">
+            This is Settings page help section..
+        </div>
+        <div *ngIf="helpTitle == 'AboutUsHelp'">
+            This is about us page help section..
+        </div>
+        {{helpTitle}}
+    </mat-menu>
+
+    <mat-menu #navMenu="matMenu">
+        <a href="{{configData.fb}}" target="_blank"><button mat-menu-item><mat-icon svgIcon = "fb"></mat-icon></button></a>
+        <a href="{{configData.twitter}}" target="_blank"><button mat-menu-item><mat-icon svgIcon = "twitter"></mat-icon></button></a>
+        <a href="{{configData.insta}}" target="_blank"><button mat-menu-item><mat-icon svgIcon = "insta"></mat-icon></button></a>
+        <button mat-menu-item routerLink = "/about"><mat-icon>info</mat-icon></button>
+        <button mat-menu-item routerLink = "/settings"><mat-icon>settings</mat-icon></button>
+    </mat-menu>
+</mat-toolbar>
