@@ -34,4 +34,24 @@ export class BackendService {
       }
     );
   }
+  getProducts(collType) {
+
+    // tslint:disable-next-line:prefer-const
+    let fakeresponse = [{
+
+      brand: 'Toyota',
+       model: 'LandCruiser',
+        name: 'Fuel pump',
+         price: '50000',
+          _id: '111'
+    }];
+
+    return Observable.create(
+      observer => {
+        setTimeout(() => {
+          observer.next(fakeresponse);
+        }, 2000);
+      }
+    );
+  }
 }

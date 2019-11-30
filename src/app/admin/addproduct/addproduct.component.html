@@ -1,0 +1,239 @@
+<header pageTitle="Add Products" iconTitle="settings" helpTitle="AboutUsHelp"></header>
+<mat-card>
+    <mat-card-content>
+        <div
+            *ngIf="(toggleField == 'searchMode') else (toggleField == 'addMode')? showAddMode : ((toggleField == 'editMode')? showEditMode : showResMode)">
+            <!--Search functionality-->
+            <form #searchFromData="ngForm" class="example-form">
+
+                <mat-card-actions>
+                    <button type="button" (click)="toggle('resMode');getFilterData(searchFromData.value);"
+                        mat-raised-button [disabled]="!searchFromData.valid" color="primary">
+                        Search
+                    </button>
+                    <span class="example-spacer"></span>
+                    <span class="example-spacer"></span>
+                    <span matTooltip="Add New">
+                        <mat-icon color="primary" (click)="toggle('addMode');">add</mat-icon>
+                    </span>
+                    <span class="example-icon"></span>
+                    <span matTooltip="Show Results">
+                        <mat-icon color="primary" (click)="toggle('resMode');getData();">cached</mat-icon>
+                    </span>
+                </mat-card-actions>
+                <mat-form-field class="example-form">
+                    <input matInput type="text" placeholder="Brand" id="brand" name="brand" #brand="ngModel" ngModel
+                        minlength="3" maxlength="20">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-form">
+                    <input matInput type="text" placeholder="Product Name" id="name" name="name" #name="ngModel" ngModel
+                        minlength="3" maxlength="20">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-form">
+                    <input matInput [matDatepicker]="pickerfromdt" placeholder="From Date" id="fromdt" name="fromdt"
+                        #fromdt="ngModel" ngModel>
+                    <mat-datepicker-toggle matSuffix [for]="pickerfromdt"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerfromdt></mat-datepicker>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-form">
+                    <input matInput [matDatepicker]="pickertodt" placeholder="To Date" id="todt" name="todt"
+                        #todt="ngModel" ngModel>
+                    <mat-datepicker-toggle matSuffix [for]="pickertodt"></mat-datepicker-toggle>
+                    <mat-datepicker #pickertodt></mat-datepicker>
+                </mat-form-field>
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>
+<ng-template #showAddMode>
+    <!--Add Functionality-->
+    <form #addDataForm="ngForm" (ngSubmit)="setData(addDataForm.value);" novalidate>
+
+        <mat-error *ngIf="savedChanges">
+            Data is saved..
+            <label class="small-spacer"></label>
+            <mat-icon (click)="this.addDataForm.reset();savedChanges=false;toggle('searchMode');">clear</mat-icon>
+        </mat-error>
+        <div *ngIf="!savedChanges">
+            <mat-card-actions align="start">
+                <button type="submit" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Add</button>
+                <button type="reset" (click)="this.addDataForm.reset();" mat-raised-button
+                    [disabled]="!addDataForm.valid" color="primary">Clear</button>
+                <span class="med-spacer"></span>
+                <span matTooltip="Search">
+                    <mat-icon color="primary" (click)="toggle('searchMode')">search</mat-icon>
+                </span>
+                <span class="small-spacer"></span>
+                <span matTooltip="Show results">
+                    <mat-icon color="primary" (click)="toggle('resMode');getData();">cached</mat-icon>
+                </span>
+            </mat-card-actions>
+            <mat-form-field>
+                <input matInput placeholder="Brand" id="brand" name="brand" ngModel required minlength="1">
+                <mat-hint align="end">eg: Toyota,Subaru, etc..</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Model" id="model" name="model" ngModel required minlength="1">
+                <mat-hint align="end">eg: LandCruiser,WRX STI, etc..</mat-hint>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <textarea matInput placeholder="*IMP*: Search use Tags Text" id="tags" name="tags" ngModel required
+                    minlength="1"></textarea>
+                <mat-hint align="end">eg: Toyota,LandCruiser</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Shipping" name="shipping" id="shipping" ngModel required pattern="[0-9]+">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="Product Name" id="name" name="name" ngModel required minlength="1">
+                <mat-hint align="end">eg: Fuel pump, Head gasket..</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Price" name="price" id="price" ngModel required pattern="[0-9]+">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <textarea matInput placeholder="Description" name="descr" id="descr" ngModel></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Discount" name="discount" id="discount" ngModel pattern="[0-9]+">
+                <mat-hint align="end">eg: 0 if no discount is offered.</mat-hint>
+            </mat-form-field>
+        </div>
+    </form>
+</ng-template>
+<ng-template #showEditMode>
+    <!--Edit Functionality-->
+    <form #editDataForm="ngForm" (ngSubmit)="updateData(editDataForm.value);" novalidate>
+        <input type="hidden" name="_id" id="_id" [ngModel]="myDocData._id" required>
+        <mat-error *ngIf="savedChanges">
+            Data is saved..
+            <label class="small-spacer"></label>
+            <mat-icon (click)="this.editDataForm.reset();savedChanges=false;toggle('searchMode');">clear</mat-icon>
+        </mat-error>
+        <div *ngIf="!savedChanges">
+            <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
+            <mat-error *ngIf="error">Error: {{errorMessage}}</mat-error>
+            <mat-card-actions align="start">
+                <button type="submit" mat-raised-button
+                    [disabled]="!this.editDataForm.valid || this.editDataForm.pristine" color="primary">Update</button>
+                <span class="med-spacer"></span>
+                <span matTooltip="Search">
+                    <mat-icon color="primary" (click)="toggle('searchMode')">search</mat-icon>
+                </span>
+                <span class="small-spacer"></span>
+                <span matTooltip="Show results">
+                    <mat-icon color="primary" (click)="toggle('resMode');getData();">cached</mat-icon>
+                </span>
+            </mat-card-actions>
+            <mat-form-field>
+                <input matInput placeholder="Brand" id="brand" name="brand" [ngModel]="myDocData.brand" required
+                    minlength="1">
+                <mat-hint align="end">eg: Toyota,Subaru, etc..</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Model" id="model" name="model" [ngModel]="myDocData.model" required
+                    minlength="1">
+                <mat-hint align="end">eg: LandCruiser,WRX STI, etc..</mat-hint>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <textarea matInput placeholder="*IMP*: Search use Tags Text" id="tags" name="tags"
+                    [ngModel]="myDocData.tags" required minlength="1"></textarea>
+                <mat-hint align="end">eg: Toyota,LandCruiser</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Shipping" name="shipping" id="shipping" [ngModel]="myDocData.shipping"
+                    required pattern="[0-9]+">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="Product Name" id="name" name="name" [ngModel]="myDocData.name" required
+                    minlength="1">
+                <mat-hint align="end">eg: Fuel pump, Head gasket..</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Price" name="price" id="price" [ngModel]="myDocData.price" required
+                    pattern="[0-9]+">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <textarea matInput placeholder="Description" name="descr" id="descr"
+                    [ngModel]="myDocData.descr"></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Discount" name="discount" id="discount" [ngModel]="myDocData.discount"
+                    pattern="[0-9]+">
+                <mat-hint align="end">eg: 0 if no discount is offered.</mat-hint>
+            </mat-form-field>
+        </div>
+    </form>
+</ng-template>
+<ng-template #showResMode>
+    <!--Results Functionality-->
+    <div class="example-header">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter(Sevent.target.value)" placeholder="Search results">
+        </mat-form-field>
+    </div>
+    <div class="example-container mat-elevation-z8">
+            <mat-table [dataSource]="dataSource" matSort>
+
+                    <ng-container matColumnDef="brand">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Brand</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.brand}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="model">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.model}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="price">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{row.price}}</mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="_id">
+                        <mat-header-cell *matHeaderCellDef>action</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-icon-button matTooltip="Show Picture" *ngIf="row.path"
+                                (click)="getPic(row.path);this.showHostSelfie = true;">
+                                <mat-icon color="primary">photo_camera</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="Remove Picture" *ngIf="row.path"
+                                (click)="deleteProductPic(row._id);this.showHostSelfie = false;">
+                                <mat-icon color="primary">camera_roll</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="Take Picture"
+                                (click)="this.myDocId = row._id;this.takeHostSelfie = true" class="label-error"
+                                *ngIf="!row.path" class="label-error">
+                                <mat-icon>camera_roll</mat-icon>
+                            </button>
+                            <span matTooltip="Edit">
+                                <button mat-icon-button (click)="getDoc(row._id)">
+                                    <mat-icon color="primary">edit</mat-icon>
+                                </button>
+                            </span>
+                            <span matTooltip="Delete">
+                                <button mat-icon-button (click)="deleteDoc(row._id)">
+                                    <mat-icon color="primary">delete</mat-icon>
+                                </button>
+                            </span>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+        <mat-paginator *paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+    
+</ng-template>
