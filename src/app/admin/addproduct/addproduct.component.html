@@ -1,4 +1,4 @@
-<header pageTitle="Add Products" iconTitle="settings" helpTitle="AboutUsHelp"></header>
+<!-- <header pageTitle="Add Products" iconTitle="settings" helpTitle="AboutUsHelp"></header> -->
 <mat-card>
     <mat-card-content>
         <div
@@ -174,66 +174,65 @@
         </div>
     </form>
 </ng-template>
+ <!--Results Functionality-->
 <ng-template #showResMode>
-    <!--Results Functionality-->
     <div class="example-header">
         <mat-form-field>
-            <input matInput (keyup)="applyFilter(Sevent.target.value)" placeholder="Search results">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search results">
         </mat-form-field>
     </div>
     <div class="example-container mat-elevation-z8">
             <mat-table [dataSource]="dataSource" matSort>
-
                     <ng-container matColumnDef="brand">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Brand</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.brand}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="model">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.model}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="name">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="price">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row.price}}</mat-cell>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="_id">
-                        <mat-header-cell *matHeaderCellDef>action</mat-header-cell>
-                        <mat-cell *matCellDef="let row">
-                            <button mat-icon-button matTooltip="Show Picture" *ngIf="row.path"
-                                (click)="getPic(row.path);this.showHostSelfie = true;">
-                                <mat-icon color="primary">photo_camera</mat-icon>
-                            </button>
-                            <button mat-icon-button matTooltip="Remove Picture" *ngIf="row.path"
-                                (click)="deleteProductPic(row._id);this.showHostSelfie = false;">
-                                <mat-icon color="primary">camera_roll</mat-icon>
-                            </button>
-                            <button mat-icon-button matTooltip="Take Picture"
-                                (click)="this.myDocId = row._id;this.takeHostSelfie = true" class="label-error"
-                                *ngIf="!row.path" class="label-error">
-                                <mat-icon>camera_roll</mat-icon>
-                            </button>
-                            <span matTooltip="Edit">
-                                <button mat-icon-button (click)="getDoc(row._id)">
-                                    <mat-icon color="primary">edit</mat-icon>
-                                </button>
-                            </span>
-                            <span matTooltip="Delete">
-                                <button mat-icon-button (click)="deleteDoc(row._id)">
-                                    <mat-icon color="primary">delete</mat-icon>
-                                </button>
-                            </span>
-                        </mat-cell>
-                    </ng-container>
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
-        <mat-paginator *paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5"
-            [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Brand</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.brand}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="model">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.model}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="name">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="price">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.price}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="_id">
+                                <mat-header-cell *matHeaderCellDef>action</mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                    <button mat-icon-button matTooltip="Show Picture" *ngIf="row.path"
+                                        (click)="getPic(row.path);this.showHostSelfie = true;">
+                                        <mat-icon color="primary">photo_camera</mat-icon>
+                                    </button>
+                                    <button mat-icon-button matTooltip="Remove Picture" *ngIf="row.path"
+                                        (click)="deleteProductPic(row._id);this.showHostSelfie = false;">
+                                        <mat-icon color="primary">camera_roll</mat-icon>
+                                    </button>
+                                    <button mat-icon-button matTooltip="Take Picture"
+                                        (click)="this.myDocId = row._id;this.takeHostSelfie = true" class="label-error"
+                                        *ngIf="!row.path" class="label-error">
+                                        <mat-icon>camera_roll</mat-icon>
+                                    </button>
+                                    <span matTooltip="Edit">
+                                        <button mat-icon-button (click)="getDoc(row._id)">
+                                            <mat-icon color="primary">edit</mat-icon>
+                                        </button>
+                                    </span>
+                                    <span matTooltip="Delete">
+                                        <button mat-icon-button (click)="deleteDoc(row._id)">
+                                            <mat-icon color="primary">delete</mat-icon>
+                                        </button>
+                                    </span>
+                                </mat-cell>
+                            </ng-container>
     
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+
 </ng-template>

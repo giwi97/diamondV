@@ -12,6 +12,15 @@ import { SettingsComponent } from './settings/settings.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddproductComponent } from './admin/addproduct/addproduct.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdmintabComponent } from './admin/admintab/admintab.component';
+import { AdminordersComponent } from './admin/adminorders/adminorders.component';
+import { AdmincartsComponent } from './admin/admincarts/admincarts.component';
+import { AdminusersComponent } from './admin/adminusers/adminusers.component';
+import { OrdersComponent } from './user/orders/orders.component';
+import { CartsComponent } from './user/carts/carts.component';
+import { UserComponent } from './user/user/user.component';
+import { ProductComponent } from './user/product/product.component';
+import { LoginComponent } from './user/login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +29,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     AboutComponent,
     SettingsComponent,
-    AddproductComponent
+    AddproductComponent,
+    AdmintabComponent,
+    AdminordersComponent,
+    AdmincartsComponent,
+    AdminusersComponent,
+    OrdersComponent,
+    CartsComponent,
+    UserComponent,
+    ProductComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

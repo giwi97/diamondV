@@ -1,11 +1,7 @@
-<header pageTitle = "Settings" iconTitle = "settings" helpTitle = "SettingsHelp"></header>
-<mat-card [@fallIn] = 'state'>
-    <mat-card-title>
-        Settings
-    </mat-card-title>
-    <mat-card-content>
-        <button routerLink = "/about"> About us</button>
-        <br>
-        </mat-card-content>
-</mat-card>
-
+<header pageTitle="Settings" iconTitle="settings" helpTitle="SettingsHelp"></header>
+<mat-tab-group>
+    <mat-tab label="Info"><user></user></mat-tab>
+    <mat-tab label="Carts"><carts></carts></mat-tab>
+    <mat-tab label="Orders"><orders></orders></mat-tab>
+  </mat-tab-group>
+  

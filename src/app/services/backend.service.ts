@@ -39,13 +39,62 @@ export class BackendService {
     // tslint:disable-next-line:prefer-const
     let fakeresponse = [{
 
-      brand: 'Toyota',
-       model: 'LandCruiser',
-        name: 'Fuel pump',
-         price: '50000',
-          _id: '111'
+      // tslint:disable-next-line:object-literal-key-quotes
+      'brand': 'Toyota',
+       // tslint:disable-next-line:object-literal-key-quotes
+       'model': 'LandCruiser',
+        // tslint:disable-next-line:object-literal-key-quotes
+        'name': 'Fuel pump',
+         // tslint:disable-next-line:object-literal-key-quotes
+         'price': '50000',
+          // tslint:disable-next-line:object-literal-key-quotes
+          '_id': '111'
     }];
 
+    return Observable.create(
+      observer => {
+        setTimeout(() => {
+          // tslint:disable-next-line:semicolon
+          observer.next(fakeresponse)
+        // tslint:disable-next-line:semicolon
+        }, 2000)
+      }
+    // tslint:disable-next-line:semicolon
+    )
+  }
+
+  getFilterProducts(collType, filters) {
+
+    // tslint:disable-next-line:prefer-const
+    let fakeresponse = [{
+
+      // tslint:disable-next-line:object-literal-key-quotes
+      'brand': 'Toyota',
+       // tslint:disable-next-line:object-literal-key-quotes
+       'model': 'LandCruiser',
+        // tslint:disable-next-line:object-literal-key-quotes
+        'name': 'Fuel pump',
+         // tslint:disable-next-line:object-literal-key-quotes
+         'price': '50000',
+          // tslint:disable-next-line:object-literal-key-quotes
+          '_id': '111'
+    }];
+
+    return Observable.create(
+      observer => {
+        setTimeout(() => {
+          // tslint:disable-next-line:semicolon
+          observer.next(fakeresponse)
+        // tslint:disable-next-line:semicolon
+        }, 2000)
+      }
+    // tslint:disable-next-line:semicolon
+    )
+  }
+
+  setProducts(collType, filters) {
+    // tslint:disable-next-line:prefer-const
+    let fakeresponse = true;
     return Observable.create(
       observer => {
         setTimeout(() => {
@@ -54,4 +103,63 @@ export class BackendService {
       }
     );
   }
+
+  updateProducts(collType, filters) {
+    // tslint:disable-next-line:prefer-const
+    let fakeresponse = true;
+    return Observable.create(
+      observer => {
+        setTimeout(() => {
+          observer.next(fakeresponse);
+        }, 2000);
+      }
+    );
+  }
+
+  getOneProductDoc(collType, docId) {
+
+    // tslint:disable-next-line:prefer-const
+    let fakeresponse = {
+
+      // tslint:disable-next-line:object-literal-key-quotes
+      'brand': 'Toyota',
+       // tslint:disable-next-line:object-literal-key-quotes
+       'model': 'LandCruiser',
+        // tslint:disable-next-line:object-literal-key-quotes
+        'name': 'Fuel pump',
+         // tslint:disable-next-line:object-literal-key-quotes
+         'price': '50000',
+          // tslint:disable-next-line:object-literal-key-quotes
+          '_id': '111'
+    };
+
+    return Observable.create(
+      observer => {
+        setTimeout(() => {
+          // tslint:disable-next-line:semicolon
+          observer.next(fakeresponse)
+        // tslint:disable-next-line:semicolon
+        }, 2000)
+      }
+    // tslint:disable-next-line:semicolon
+    )
+  }
+
+  delOneProductDoc(collType, docId) {
+
+    // tslint:disable-next-line:prefer-const
+    let fakeresponse = true;
+    return Observable.create(
+      observer => {
+        setTimeout(() => {
+          // tslint:disable-next-line:semicolon
+          observer.next(fakeresponse)
+        // tslint:disable-next-line:semicolon
+        }, 2000)
+      }
+    // tslint:disable-next-line:semicolon
+    )
+  }
+
+
 }

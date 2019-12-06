@@ -6,12 +6,13 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AddproductComponent } from './admin/addproduct/addproduct.component';
+import { AdmintabComponent } from './admin/admintab/admintab.component';
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/about', pathMatch: 'full'},
   {path: 'about', component: AboutComponent},
-  {path: 'addproduct', component: AddproductComponent},
+  {path: 'admin', component: AdmintabComponent},
   {path: 'settings', component: SettingsComponent},
   {path: '**', redirectTo: '/about', pathMatch: 'full'},
 ];
